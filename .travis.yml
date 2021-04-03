@@ -1,0 +1,23 @@
+sudo: required
+language: generic
+services:
+  - docker
+
+before_install:
+  - docker build -t pradkevich/react-test -f ./client/Dockerfile.dev ./client
+
+script:
+  - docker run -e CI=true pradkevich/react-test npm test -- --coverage
+
+after_success:
+  - docker build -t pradkevich/complex-client ./client
+  - docker build -t pradkevich/complex-nginx ./nginx
+  - docker build -t pradkevich/complex-server ./server
+  - docker duild -t pradkevich/complex-worker ./worker
+  # Log in to the Docker CLI
+  - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
+  # Take those images and push them to dockerhub
+  - docker push pradkevich/complex-client
+  - docker push pradkevich/complex-nginx
+  - docker push pradkevich/complex-server
+  - docker push pradkevich/complex-worker
