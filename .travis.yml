@@ -18,6 +18,6 @@ after_success:
   - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
   # Take those images and push them to dockerhub
   - docker push pradkevich/complex-client
-  - docker push pradkevich/complex-nginx
-  - docker push pradkevich/complex-server
+  # - docker push pradkevich/complex-nginx
+  # - docker push pradkevich/complex-server
   - docker push pradkevich/complex-worker
