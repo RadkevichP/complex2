@@ -11,14 +11,14 @@ script:
   - docker run -e CI=true pradkevich/react-test npm test
 
 after_success:
-  - docker build -t pradkevich/multi-client ./client
-  - docker build -t pradkevich/multi-nginx ./nginx
-  - docker build -t pradkevich/multi-server ./server
-  - docker build -t pradkevich/multi-worker ./worker
+  - docker build -t pradkevich/complex-client ./client
+  - docker build -t pradkevich/complex-nginx ./nginx
+  - docker build -t pradkevich/complex-server ./server
+  - docker build -t pradkevich/complex-worker ./worker
   # Log in to the docker CLI
   - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
   # Take those images and push them to docker hub
-  - docker push pradkevich/multi-client
-  - docker push pradkevich/multi-nginx
-  - docker push pradkevich/multi-server
-  - docker push pradkevich/multi-worker
+  - docker push pradkevich/complex-client
+  - docker push pradkevich/complex-nginx
+  - docker push pradkevich/complex-server
+  - docker push pradkevich/complex-worker
